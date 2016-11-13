@@ -38,7 +38,7 @@
 
       methods: {
         login: function() {
-          location.href="https://github.com/login/oauth/authorize?client_id=6ca71f7d3a103e43d2b1&redirect_uri=http://localhost:8860/"
+          location.href="https://github.com/login/oauth/authorize?client_id=6ca71f7d3a103e43d2b1&redirect_uri=http://localhost:8860/&scope=user%20public_repo"
         },
         // 获得每周分享列表
         // fetch('https://api.github.com/repos/SmartUED/week-share/issues?access_token=f0167f6a77c4b4e3a2defd41585f444ef606ce43').then(res => res.json()).then(json => console.log(json))
@@ -46,7 +46,7 @@
         // 发布分享
         getIssues: function() {
           var G = window.GitHub;
-          var gh = new G({token:"020d30d0930cb64e90ba19fae874b3d5367b4cf4"});
+          var gh = new G({ token: this.token });
           var issue = gh.getIssues('KevinHu-1024', 'gitourMock');
           var self = this;
           issue.listIssues().then(function(res) {console.log(res.data);self.res = res.data;})
@@ -54,15 +54,16 @@
 
         creatIssue: function() {
           var G = window.GitHub;
-          var gh = new G({token:"020d30d0930cb64e90ba19fae874b3d5367b4cf4"});
+          var gh = new G({ token: this.token });
           var issue = gh.getIssues('KevinHu-1024', 'gitourMock');
           var self = this;
 
           var issueData = {
-            title: 'First Issue Post',
+            title: 'redux 从入门到放弃 reducer',
+            body: '* This is a post from Github OAuth App.'
           };
           issueData = JSON.stringify(issueData);
-          issue.createIssue(issueData).then(function(err, res, req) { console.log(err, res); });
+          issue.createIssue(issueData).then(function(res) {console.log(res.data);self.res = res.data;});
         }
       },
 
