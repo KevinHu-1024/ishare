@@ -68,6 +68,8 @@
       },
 
       mounted: function() {
+        // 先判断有没有存储token，有->验证token有效性->有效，跳过；无效-> 删除现有的，申请新的，没有->申请新的
+        // 申请新的 -> 往哪里传？  -> 获得token -> url replaceState
         var needOAuth = window.location.href.match(/\?code=(.*)/);
         if (needOAuth && window.localStorage && !localStorage.ishare_token) {
           var code = window.location.href.match(/\?code=(.*)/)[1];
